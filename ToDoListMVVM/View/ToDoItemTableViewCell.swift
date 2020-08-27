@@ -31,13 +31,13 @@ class ToDoItemTableViewCell: UITableViewCell {
             
             titleLabel?.text = toDoItem.itemTitle
             descriptionLabel?.text = toDoItem.itemDescription
-            checkBoxButton.isSelected = toDoItem.isChecked
+            checkBoxButton?.isSelected = toDoItem.isChecked
             
             //Gray out the cell if checkbox is selected
-            outerView.backgroundColor = (checkBoxButton.isSelected ? UIColor.gray : UIColor.clear)
+            outerView?.backgroundColor = (checkBoxButton.isSelected ? UIColor.gray : UIColor.clear)
             
 //            //Once an item is checked, don't allow it to be unchecked.
-            checkBoxButton.isUserInteractionEnabled = !checkBoxButton.isSelected
+            checkBoxButton?.isUserInteractionEnabled = !checkBoxButton.isSelected
         }
     }
     
