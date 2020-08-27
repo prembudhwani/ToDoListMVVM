@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ToDoItemsListViewController.swift
 //  ToDoListMVVM
 //
 //  Created by Prem Budhwani on 27/08/20.
@@ -8,11 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ToDoItemsListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.title = "To Do List"
     }
 
 
