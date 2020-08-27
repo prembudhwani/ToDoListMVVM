@@ -10,6 +10,11 @@ import UIKit
 
 class ToDoItemTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var outerView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var checkBoxButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +26,6 @@ class ToDoItemTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func checkBoxButtonTapped(_ sender: Any) {
+    }
 }
