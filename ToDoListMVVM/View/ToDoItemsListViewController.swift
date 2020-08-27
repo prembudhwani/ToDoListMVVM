@@ -8,11 +8,14 @@
 
 import UIKit
 
-class ToDoItemsListViewController: UIViewController , ToDoItemDataSourceUpdateDelegate , AddNewToDoItemViewControllerDelegate{
+class ToDoItemsListViewController: UIViewController , ToDoItemDataSourceUpdateDelegate , AddNewToDoItemViewControllerDelegate , UISearchBarDelegate{
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var dataSource = ToDoItemDataSource()
+    
+    var filterText = ""             //Variable to hold the Filter text. By default keep it blank
     
     lazy var viewModel : ToDoItemViewModel = {
         dataSource.dataSourceUpdateDelegate = self
@@ -31,15 +34,13 @@ class ToDoItemsListViewController: UIViewController , ToDoItemDataSourceUpdateDe
         }
         
         self.viewModel.fetchToDoItems()
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now()+20) {
-//            let objTemp = self.dataSource.data.value[0]
-//            objTemp.itemTitle = "HHHH"
-//            self.dataSource.data.value[0] = objTemp
-//        }
+        self.searchBar.delegate = self
     }
 
     @IBAction func addButtonTapped(_ sender: Any) {
+        //Remove any filter applied
+        self.cancelSearchOperation()
+        
         let vc = self.storyboard?.instantiateViewController(identifier: "AddNewToDoItemVC") as! AddNewToDoItemViewController
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
@@ -56,10 +57,43 @@ class ToDoItemsListViewController: UIViewController , ToDoItemDataSourceUpdateDe
         self.RefreshItemsList()
     }
     
+    //MARK: UISearchBarDelegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filterText = searchText
+        self.RefreshItemsList()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.cancelSearchOperation()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //Just dismiss the keyboard
+        self.view.endEditing(true)
+    }
+    
+    //Method to cancel the search operation
+    func cancelSearchOperation()
+    {
+        //Dismiss the keyboard and remove any filter and refresh list
+        self.view.endEditing(true)
+        self.searchBar.text = ""
+        self.filterText = ""
+        self.RefreshItemsList()
+    }
+    
     //Method to refresh the listing
     func RefreshItemsList()
     {
-        self.viewModel.fetchToDoItems()
+        if (self.filterText.isEmpty)
+        {
+            self.viewModel.fetchToDoItems()
+        }
+        else
+        {
+            self.viewModel.fetchFilteredToDoItems(filterString: self.filterText)
+        }
+        
         self.tableView.reloadData()
     }
 }
