@@ -33,8 +33,11 @@ class ToDoItemTableViewCell: UITableViewCell {
             descriptionLabel?.text = toDoItem.itemDescription
             checkBoxButton.isSelected = toDoItem.isChecked
             
-//            //Once an item is checked, don't allow it to be unchecked.                This is optional. So commenting out
-//            checkBoxButton.isUserInteractionEnabled = !checkBoxButton.isSelected
+            //Gray out the cell if checkbox is selected
+            outerView.backgroundColor = (checkBoxButton.isSelected ? UIColor.gray : UIColor.clear)
+            
+//            //Once an item is checked, don't allow it to be unchecked.
+            checkBoxButton.isUserInteractionEnabled = !checkBoxButton.isSelected
         }
     }
     
