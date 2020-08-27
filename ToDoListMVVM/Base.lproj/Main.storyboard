@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--To Do List-->
+        <!--To Do Items List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ToDoItemsListViewController" customModule="ToDoListMVVM" customModuleProvider="target" sceneMemberID="viewController">
@@ -47,11 +47,13 @@
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qEE-To-XQy">
                                                             <rect key="frame" x="364" y="13.5" width="40" height="40"/>
-                                                            <color key="backgroundColor" red="0.37839181690000001" green="0.60327315010000004" blue="0.42714460780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="91D-M9-NX3"/>
                                                                 <constraint firstAttribute="height" constant="40" id="FOK-3a-FFO"/>
                                                             </constraints>
+                                                            <state key="normal" image="unchecked_icon"/>
+                                                            <state key="selected" image="checked_icon"/>
                                                             <connections>
                                                                 <action selector="checkBoxButtonTapped:" destination="eC8-4l-uTb" eventType="touchUpInside" id="xaA-cd-u8p"/>
                                                             </connections>
@@ -101,17 +103,107 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="To Do List" id="v16-7Y-U1a">
+                    <navigationItem key="navigationItem" id="v16-7Y-U1a">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="n6Q-q1-ZAa">
                             <connections>
                                 <action selector="addButtonTapped:" destination="BYZ-38-t0r" id="Nyd-Vd-N0P"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="BMA-Xv-dfc" id="hpj-rt-7LP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="118.52678571428571"/>
+        </scene>
+        <!--Add New To Do Item View Controller-->
+        <scene sceneID="nNG-IO-OBS">
+            <objects>
+                <viewController storyboardIdentifier="AddNewToDoItemVC" id="5b9-ph-QaA" customClass="AddNewToDoItemViewController" customModule="ToDoListMVVM" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ryZ-Jg-6he">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1h-UK-b0b">
+                                <rect key="frame" x="10" y="84" width="394" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i5D-e6-ZfB">
+                                <rect key="frame" x="10" y="106.5" width="394" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7j5-Tq-epc">
+                                <rect key="frame" x="10" y="160.5" width="394" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mU2-7F-YeW">
+                                <rect key="frame" x="10" y="183" width="394" height="100"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="5U9-cL-IVS"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a3S-nc-edU">
+                                <rect key="frame" x="10" y="323" width="394" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGs-Ae-aMR">
+                                        <rect key="frame" x="0.0" y="0.0" width="192" height="30"/>
+                                        <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="saveButtonTapped:" destination="5b9-ph-QaA" eventType="touchUpInside" id="L4c-yN-MXy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13w-7G-okV">
+                                        <rect key="frame" x="202" y="0.0" width="192" height="30"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="5b9-ph-QaA" eventType="touchUpInside" id="das-de-H31"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PA2-iG-dbC"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mU2-7F-YeW" firstAttribute="top" secondItem="7j5-Tq-epc" secondAttribute="bottom" constant="2" id="ArX-nS-ZL2"/>
+                            <constraint firstItem="i5D-e6-ZfB" firstAttribute="leading" secondItem="gjV-ao-FxT" secondAttribute="leading" constant="10" id="BkQ-qV-ika"/>
+                            <constraint firstItem="gjV-ao-FxT" firstAttribute="trailing" secondItem="7j5-Tq-epc" secondAttribute="trailing" constant="10" id="GDs-Ld-VrE"/>
+                            <constraint firstItem="gjV-ao-FxT" firstAttribute="trailing" secondItem="mU2-7F-YeW" secondAttribute="trailing" constant="10" id="HAG-wM-VUF"/>
+                            <constraint firstItem="w1h-UK-b0b" firstAttribute="leading" secondItem="gjV-ao-FxT" secondAttribute="leading" constant="10" id="Jjw-PK-aW4"/>
+                            <constraint firstItem="a3S-nc-edU" firstAttribute="top" secondItem="mU2-7F-YeW" secondAttribute="bottom" constant="40" id="MXz-Jk-CMv"/>
+                            <constraint firstItem="mU2-7F-YeW" firstAttribute="leading" secondItem="gjV-ao-FxT" secondAttribute="leading" constant="10" id="WSh-2K-J6N"/>
+                            <constraint firstItem="gjV-ao-FxT" firstAttribute="trailing" secondItem="i5D-e6-ZfB" secondAttribute="trailing" constant="10" id="WqN-LV-ZfF"/>
+                            <constraint firstItem="i5D-e6-ZfB" firstAttribute="top" secondItem="w1h-UK-b0b" secondAttribute="bottom" constant="2" id="aCg-Ww-dcQ"/>
+                            <constraint firstItem="7j5-Tq-epc" firstAttribute="leading" secondItem="gjV-ao-FxT" secondAttribute="leading" constant="10" id="c2v-1p-THc"/>
+                            <constraint firstItem="w1h-UK-b0b" firstAttribute="top" secondItem="gjV-ao-FxT" secondAttribute="top" constant="40" id="cZD-gT-K45"/>
+                            <constraint firstItem="gjV-ao-FxT" firstAttribute="trailing" secondItem="a3S-nc-edU" secondAttribute="trailing" constant="10" id="m7V-Fc-5MM"/>
+                            <constraint firstItem="gjV-ao-FxT" firstAttribute="trailing" secondItem="w1h-UK-b0b" secondAttribute="trailing" constant="10" id="qgR-GN-KtQ"/>
+                            <constraint firstItem="a3S-nc-edU" firstAttribute="leading" secondItem="gjV-ao-FxT" secondAttribute="leading" constant="10" id="vAJ-0W-bSY"/>
+                            <constraint firstItem="7j5-Tq-epc" firstAttribute="top" secondItem="i5D-e6-ZfB" secondAttribute="bottom" constant="20" id="ydo-j8-5Dv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gjV-ao-FxT"/>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="mU2-7F-YeW" id="hQU-fW-Cyk"/>
+                        <outlet property="titleTextField" destination="i5D-e6-ZfB" id="oLj-vO-1U7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jgw-hB-W6V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2098.5507246376815" y="109.82142857142857"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Gd-tQ-wL7">
@@ -132,4 +224,8 @@
             <point key="canvasLocation" x="137.68115942028987" y="118.52678571428571"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="checked_icon" width="32" height="32"/>
+        <image name="unchecked_icon" width="32" height="32"/>
+    </resources>
 </document>

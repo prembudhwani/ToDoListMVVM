@@ -8,12 +8,35 @@
 
 import UIKit
 
+protocol ToDoItemTableViewCellDelegate {
+    func itemCheckBoxTapped(state:Bool , indexPath:IndexPath)
+}
+
 class ToDoItemTableViewCell: UITableViewCell {
 
     @IBOutlet weak var outerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var checkBoxButton: UIButton!
+    
+    var delegate : ToDoItemTableViewCellDelegate?
+    var indexPath : IndexPath?
+    
+    var toDoItem : ToDoItem? {
+        didSet {
+            
+            guard let toDoItem = toDoItem else {
+                return
+            }
+            
+            titleLabel?.text = toDoItem.itemTitle
+            descriptionLabel?.text = toDoItem.itemDescription
+            checkBoxButton.isSelected = toDoItem.isChecked
+            
+//            //Once an item is checked, don't allow it to be unchecked.                This is optional. So commenting out
+//            checkBoxButton.isUserInteractionEnabled = !checkBoxButton.isSelected
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,5 +50,11 @@ class ToDoItemTableViewCell: UITableViewCell {
     }
 
     @IBAction func checkBoxButtonTapped(_ sender: Any) {
+        self.checkBoxButton.isSelected = !self.checkBoxButton.isSelected
+        
+        if (self.delegate != nil && self.indexPath != nil)
+        {
+            self.delegate?.itemCheckBoxTapped(state: self.checkBoxButton.isSelected, indexPath: self.indexPath!)
+        }
     }
 }
